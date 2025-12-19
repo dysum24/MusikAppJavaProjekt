@@ -91,6 +91,7 @@
           </font>
         </Label>
             <Button layoutX="268.0" layoutY="69.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="241.0" layoutY="263.0" mnemonicParsing="false" text="Button" />
       </children>
     </AnchorPane>
   </children>
