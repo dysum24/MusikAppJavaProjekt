@@ -10,7 +10,11 @@ module com.example.javaprojektmusikapp {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires com.google.gson;
+    requires java.net.http;
 
     opens com.example.javaprojektmusikapp to javafx.fxml;
+    opens com.example.javaprojektmusikapp.controller to javafx.fxml;
     exports com.example.javaprojektmusikapp;
+
 }
