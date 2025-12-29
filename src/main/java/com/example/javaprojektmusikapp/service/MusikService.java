@@ -23,8 +23,9 @@ public class MusikService {
         this.client = HttpClient.newHttpClient();
     }
 
-    public List<Song> searchByTitle(String title) throws Exception {
-        String encodedTitle = URLEncoder.encode(title, StandardCharsets.UTF_8);
+    public List<Song> searchByTitle(String searchTerm) throws Exception
+    {
+        String encodedTitle = URLEncoder.encode(searchTerm, StandardCharsets.UTF_8);
         String url = API_URL + "?term=" + encodedTitle + "&media=music&entity=song";
 
         HttpRequest request = HttpRequest.newBuilder()
