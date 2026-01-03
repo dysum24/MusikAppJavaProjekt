@@ -34,6 +34,11 @@ public class FavoritesService
         return favorites.contains(song);
     }
 
+    public ArrayList<Song> getFavorites()
+    {
+        return new ArrayList<>(favorites);
+    }
+
     private void saveFavorites()
     {
         BufferedWriter writer = fileHandler.schreiben("./data/", "favorites.csv");
@@ -45,7 +50,7 @@ public class FavoritesService
 
     public void loadFavorites()
     {
-        DHLNIO handler = (DHLNIO) fileHandler;
+        DHLIO handler = (DHLIO) fileHandler;
         BufferedReader reader = handler.lesen("./data/", "favorites.csv");
         if(reader != null)
         {
