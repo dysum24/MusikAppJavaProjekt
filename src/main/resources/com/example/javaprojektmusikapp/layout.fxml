@@ -39,7 +39,7 @@
       <Insets />
    </opaqueInsets>
    <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      <Insets top="5.0" />
    </padding>
    <left>
       <VBox prefHeight="569.0" prefWidth="114.0" style="-fx-background-color: #1e293d; -fx-background-radius: 15;" BorderPane.alignment="CENTER">
@@ -49,6 +49,10 @@
       </VBox>
    </left>
    <bottom>
-      <VBox prefHeight="76.0" prefWidth="1270.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="76.0" prefWidth="1292.0" styleClass="left-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="5.0" />
+         </BorderPane.margin>
+      </VBox>
    </bottom>
 </BorderPane>

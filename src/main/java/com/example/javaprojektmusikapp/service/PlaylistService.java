@@ -1,10 +1,12 @@
 package com.example.javaprojektmusikapp.service;
 
 import com.example.javaprojektmusikapp.model.Playlist;
+import com.example.javaprojektmusikapp.model.Song;
 import com.example.javaprojektmusikapp.util.DHL;
 import com.example.javaprojektmusikapp.util.DHLIO;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.util.ArrayList;
 
 public class PlaylistService
@@ -22,6 +24,38 @@ public class PlaylistService
         playlists.add(playlist);
         savePlaylist(playlist);
         return playlist;
+
+    }
+
+    public void addSongToPlaylist(Playlist playlist, Song song)
+    {
+        playlist.addSong(song);
+        savePlaylist(playlist);
+    }
+
+    public void removeSongFromPlaylist(Playlist playlist, Song song)
+    {
+        playlist.removeSong(song);
+        savePlaylist(playlist);
+    }
+
+    public void renamePLaylist(Playlist playlist, String newName)
+    {
+        File oldFile = new File("./data/playlist_" + playlist.getName() + ".csv");
+        oldFile.delete();
+
+        playlist.setName(newName);
+        savePlaylist(playlist);
+    }
+
+    public void deletePlaylist(Playlist playlist)
+    {
+        playlists.remove(playlist);
+        File file = new File("./data/playlist_" + playlist.getName() + ".csv");
+        if(file.exists())
+        {
+           file.delete();
+        }
 
     }
 

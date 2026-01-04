@@ -1,3 +1,10 @@
 .gradient-background {
     -fx-background-color: linear-gradient(to bottom right, #667eea, #1a1a2e);
 }
+
+.left-bar
+{
+
+    -fx-background-color: rgba(192, 185, 192, 0.2);
+
+}
