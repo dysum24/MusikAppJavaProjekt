@@ -54,4 +54,12 @@ public class Playlist
    {
        return obj instanceof Playlist && ((Playlist)obj).getName().equals(name);
    }
+
+   @Override
+    public int hashCode()
+   {
+       return name.hashCode();
+       //song contians
+   }
+
 }

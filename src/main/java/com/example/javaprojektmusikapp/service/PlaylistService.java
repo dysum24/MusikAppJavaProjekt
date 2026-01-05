@@ -5,6 +5,7 @@ import com.example.javaprojektmusikapp.model.Song;
 import com.example.javaprojektmusikapp.util.DHL;
 import com.example.javaprojektmusikapp.util.DHLIO;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.util.ArrayList;
@@ -67,6 +68,46 @@ public class PlaylistService
         {
             fileHandler.schreibenDateiCSV(playlist.getSongs(), writer);
         }
+    }
+    private void loadPlaylist()
+    {
+        File folder = new File("./data");
+        if(!folder.exists())
+        {
+            folder.mkdirs();
+            return;
+        }
+
+        File[] files = folder.listFiles((dir, name) -> name.startsWith("playlist_") && name.endsWith(".csv"));
+
+        if(files != null)
+        {
+            for(File file : files)
+            {
+                String playlistName = file.getName().replace("playlist_", "").replace(".csv", "");
+
+                DHLIO handler = (DHLIO) fileHandler;
+                BufferedReader reader = handler.lesen("./data/", file.getName());
+
+                if(reader != null)
+                {
+                    ArrayList<Song> songs = handler.auslesen(reader);
+
+                    Playlist playlist = new Playlist(playlistName);
+                    for(Song song: songs)
+                    {
+                        playlist.addSong(song);
+                    }
+                    playlists.add(playlist);
+                }
+            }
+        }
+        System.out.println("Playlists geladen:" + playlists.size());
+    }
+
+    public ArrayList<Playlist> getAllPlaylists()
+    {
+        return playlists;
     }
 
     public Playlist getPlaylistByName(String name)

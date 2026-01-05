@@ -96,4 +96,16 @@ public class Song
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return obj instanceof Song && ((Song)obj).getTrackId().equals(trackId);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return trackId.hashCode();
+    }
 }
