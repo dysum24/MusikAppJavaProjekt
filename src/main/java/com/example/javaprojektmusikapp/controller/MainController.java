@@ -1,37 +1,50 @@
 package com.example.javaprojektmusikapp.controller;
 
-import com.example.javaprojektmusikapp.model.Song;
-import com.example.javaprojektmusikapp.service.MusikService;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
 
-import java.util.List;
+import java.io.IOException;
 
 public class MainController {
 
+    // Der Controller der Sidebar
     @FXML
-    private TextField searchField;
-
-    @FXML
-    private ListView<String> resultsList;
-
-    private final MusikService musikService = new MusikService();
+    private NavigationController sidebarController;
 
     @FXML
-    private void onSearch() {
-        String query = searchField.getText();
-        if (query.isEmpty()) return;
+    private AnchorPane contentPane;
 
+    @FXML
+    public void initialize() {
+        sidebarController.setMainController(this);
+        showHome();
+    }
+
+    private void loadView(String fxml) {
         try {
-            List<Song> songs = musikService.searchByTitle(query);
-            resultsList.getItems().clear();
-            for (Song song : songs) {
-                resultsList.getItems().add(song.getTrackName() + " - " + song.getArtistName());
-            }
-        } catch (Exception e) {
-            resultsList.getItems().clear();
-            resultsList.getItems().add("Error: " + e.getMessage());
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/javaprojektmusikapp/" + fxml)
+            );
+            Node view = loader.load();
+
+            // Inhalt im Center austauschen
+            contentPane.getChildren().setAll(view);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void showHome() {
+        loadView("home.fxml");
+    }
+
+    public void showSearch() {
+        loadView("search.fxml");
+    }
+
+    public void showFavorites() {
+        loadView("favorites.fxml");
     }
 }
