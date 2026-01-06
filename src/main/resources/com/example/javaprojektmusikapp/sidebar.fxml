@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.javaprojektmusikapp.controller.NavigationController"
+      prefWidth="230.0"
+      spacing="8.0"
+      styleClass="sidebar">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <children>
+        <Label styleClass="app-title" text="MusicApp" />
+
+        <Button fx:id="homeBtn"
+                text="Home"
+                styleClass="nav-btn"
+                onAction="#onHome"/>
+
+        <Button fx:id="searchNavBtn"
+                text="Search"
+                styleClass="nav-btn"
+                onAction="#onSearch"/>
+
+        <Button fx:id="favoritesBtn"
+                text="Favorites"
+                styleClass="nav-btn"
+                onAction="#onFavorites"/>
+
+        <Label styleClass="section-title" text="PLAYLISTS" />
+
+        <ListView fx:id="playlistList"
+                  VBox.vgrow="ALWAYS"/>
+    </children>
+</VBox>

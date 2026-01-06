@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.javaprojektmusikapp.controller.PlayerController"
+      prefHeight="90.0"
+      prefWidth="200.0"
+      spacing="12.0"
+      styleClass="playerbar">
+
+    <padding>
+        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+    </padding>
+
+    <children>
+        <ImageView fx:id="coverImage"
+                   fitHeight="56.0"
+                   fitWidth="56.0"
+                   pickOnBounds="true"
+                   preserveRatio="true" />
+
+        <VBox prefHeight="200.0"
+              prefWidth="100.0"
+              spacing="2.0">
+            <children>
+                <Label fx:id="titleLabel"
+                       styleClass="player-title"
+                       text="Songtitel" />
+                <Label fx:id="artistLabel"
+                       styleClass="player-artist"
+                       text="Künstler" />
+            </children>
+        </VBox>
+
+        <Region prefHeight="200.0"
+                prefWidth="200.0"
+                HBox.hgrow="ALWAYS" />
+
+        <Button fx:id="playPauseBtn"
+                mnemonicParsing="false"
+                styleClass="play-btn"
+                text="▶"
+                onAction="#onPlayPause"/>
+
+        <Slider fx:id="progressSlider"
+                blockIncrement="1.0"
+                focusTraversable="false"
+                max="30.0"
+                prefHeight="34.0"
+                prefWidth="150.0"
+                styleClass="progress-slider" />
+
+        <Region prefHeight="200.0"
+                prefWidth="200.0"
+                HBox.hgrow="ALWAYS" />
+
+        <Slider fx:id="volumeSlider"
+                focusTraversable="false"
+                orientation="VERTICAL"
+                prefHeight="60.0"
+                styleClass="volume-slider"
+                value="70.0" />
+    </children>
+</HBox>
