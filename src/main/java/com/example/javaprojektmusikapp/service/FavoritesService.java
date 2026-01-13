@@ -34,6 +34,20 @@ public class FavoritesService
         return favorites.contains(song);
     }
 
+    public boolean toggleFavorite(Song song)
+    {
+        if(favorites.contains(song))
+        {
+            removeFavorite(song);
+            return false;
+        }
+        else
+        {
+            addFavorite(song);
+            return true;
+        }
+    }
+
     public ArrayList<Song> getFavorites()
     {
         return new ArrayList<>(favorites);
