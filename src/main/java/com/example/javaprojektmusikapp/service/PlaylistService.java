@@ -69,7 +69,7 @@ public class PlaylistService
             fileHandler.schreibenDateiCSV(playlist.getSongs(), writer);
         }
     }
-    private void loadPlaylist()
+    public void loadPlaylist()
     {
         File folder = new File("./data");
         if(!folder.exists())
