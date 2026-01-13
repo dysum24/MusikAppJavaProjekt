@@ -16,6 +16,8 @@ public abstract class DHL
 
     public ArrayList<Song> auslesen(BufferedReader in)
     {
+        ArrayList<Song> songs = new ArrayList<>();
+
         String zeile = null;
         try
         {
