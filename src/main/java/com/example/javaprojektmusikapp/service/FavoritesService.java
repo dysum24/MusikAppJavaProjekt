@@ -14,6 +14,11 @@ public class FavoritesService
     private ArrayList<Song> favorites = new ArrayList<>();
     private DHL fileHandler = new DHLIO();
 
+    public FavoritesService()
+    {
+        loadFavorites();
+    }
+
     public void addFavorite(Song song)
     {
         if(!favorites.contains(song))

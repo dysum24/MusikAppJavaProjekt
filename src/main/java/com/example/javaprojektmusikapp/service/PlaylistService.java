@@ -15,6 +15,11 @@ public class PlaylistService
     private ArrayList<Playlist> playlists = new ArrayList<>();
     private DHL fileHandler = new DHLIO();
 
+    public PlaylistService()
+    {
+        loadPlaylist();
+    }
+
     public Playlist createPlaylist(String name)
     {
         if(getPlaylistByName(name) != null)

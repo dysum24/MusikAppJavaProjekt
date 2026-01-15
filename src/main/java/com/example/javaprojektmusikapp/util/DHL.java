@@ -8,7 +8,6 @@ import com.example.javaprojektmusikapp.model.Song;
 
 public abstract class DHL
 {
-    protected ArrayList<Song> songListe = new ArrayList<>();
     protected BufferedReader in;
     protected BufferedWriter out;
 
@@ -56,7 +55,7 @@ public abstract class DHL
                         split.length > 7 ? Double.parseDouble(split[7]) : 0.0,
                         split.length > 8 ? split[8] : ""
                 );
-                songListe.add(song);
+                songs.add(song);
             }
         }
         catch(IOException e)
@@ -74,7 +73,7 @@ public abstract class DHL
                 e.printStackTrace();
             }
         }
-        return songListe;
+        return songs;
     }
 
     public void schreibenDateiCSV(ArrayList<Song> songs, BufferedWriter out)
