@@ -1,5 +1,6 @@
 package com.example.javaprojektmusikapp.controller;
 
+import com.example.javaprojektmusikapp.model.Song;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,6 +18,9 @@ public class MainController {
     private AnchorPane contentPane;
 
     @FXML
+    private PlayerController playerbarController;
+
+    @FXML
     public void initialize() {
         sidebarController.setMainController(this);
         showHome();
@@ -29,12 +33,17 @@ public class MainController {
             );
             Node view = loader.load();
 
-            // Inhalt im Center austauschen
+            Object controller = loader.getController();
+            if (controller instanceof SearchController sc) {
+                sc.setMainController(this);
+            }
+
             contentPane.getChildren().setAll(view);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void showHome() {
         loadView("home.fxml");
@@ -46,5 +55,11 @@ public class MainController {
 
     public void showFavorites() {
         loadView("favorites.fxml");
+    }
+
+    public void showInPlayerbar(Song song) {
+        if (playerbarController != null) {
+            playerbarController.showSong(song);
+        }
     }
 }

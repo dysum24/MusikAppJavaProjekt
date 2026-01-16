@@ -36,6 +36,6 @@
       <fx:include fx:id="sidebar" source="sidebar.fxml"/>
    </left>
    <bottom>
-      <fx:include source="playerbar.fxml"/>
+      <fx:include fx:id="playerbar" source="playerbar.fxml"/>
    </bottom>
 </BorderPane>
