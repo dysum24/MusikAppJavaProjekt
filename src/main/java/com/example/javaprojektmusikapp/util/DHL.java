@@ -4,6 +4,11 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.File;
 import com.example.javaprojektmusikapp.model.Song;
 
 public abstract class DHL
@@ -106,7 +111,47 @@ public abstract class DHL
         }
     }
 
-    //reminder serialisierung
+    public void speichernObjekt(Object objekt, String speicherort, String dateiname)
+    {
+        try
+        {
+            File dir = new File(speicherort);
+            if(!dir.exists())
+            {
+                dir.mkdirs();
+            }
+
+            FileOutputStream fos = new FileOutputStream(speicherort + dateiname);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(objekt);
+            oos.close();
+            fos.close();
+            System.out.println("Objekt gespeichert: " + dateiname);
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public Object ladenObjekt(String speicherort, String dateiname)
+    {
+        try
+        {
+            FileInputStream fis = new FileInputStream(speicherort + dateiname);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Object objekt = ois.readObject();
+            ois.close();
+            fis.close();
+            System.out.println("Objekt geladen: " + dateiname);
+            return objekt;
+        }
+        catch(IOException | ClassNotFoundException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public BufferedWriter getOut()
     {

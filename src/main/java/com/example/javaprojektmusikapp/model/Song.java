@@ -1,7 +1,10 @@
 package com.example.javaprojektmusikapp.model;
+import java.io.Serializable;
 
-public class Song
+public class Song implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
     private String trackId;
     private String trackName;
     private String artistName;

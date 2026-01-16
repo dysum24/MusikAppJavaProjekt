@@ -8,10 +8,13 @@ import com.example.javaprojektmusikapp.util.DHLIO;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PlaylistService
+public class PlaylistService implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
     private ArrayList<Playlist> playlists = new ArrayList<>();
     private DHL fileHandler = new DHLIO();
 
