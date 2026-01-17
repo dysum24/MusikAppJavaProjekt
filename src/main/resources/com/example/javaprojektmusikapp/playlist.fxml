@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.javaprojektmusikapp.controller.PlaylistController">
+
+    <Label fx:id="playlistTitle"
+           layoutX="24"
+           layoutY="24"
+           styleClass="section-title"
+           text="Playlist"/>
+
+    <ListView fx:id="songList"
+              layoutX="24"
+              layoutY="56"
+              prefWidth="600"
+              prefHeight="350"/>
+
+</AnchorPane>

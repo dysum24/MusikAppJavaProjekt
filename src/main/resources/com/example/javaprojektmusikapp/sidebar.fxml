@@ -37,6 +37,10 @@
 
         <Label styleClass="section-title" text="PLAYLISTS" />
 
+        <Button text="+ Neue Playlist"
+                styleClass="nav-btn"
+                onAction="#onCreatePlaylist"/>
+
         <ListView fx:id="playlistList"
                   VBox.vgrow="ALWAYS"/>
     </children>
