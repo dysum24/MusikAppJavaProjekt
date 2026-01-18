@@ -25,6 +25,7 @@ public class FavoritesService
         {
             favorites.add(song);
             saveFavorites();
+            backupFavorites();
         }
     }
 
@@ -32,6 +33,7 @@ public class FavoritesService
     {
         favorites.remove(song);
         saveFavorites();
+        backupFavorites();
     }
 
     public boolean isFavorite(Song song)
@@ -74,6 +76,22 @@ public class FavoritesService
         if(reader != null)
         {
             favorites = fileHandler.auslesen(reader);
+        }
+    }
+
+    private void backupFavorites()
+    {
+        fileHandler.speichernObjekt(favorites, "./data/", "favorites_backup.ser");
+    }
+
+    @SuppressWarnings("unchecked")
+    public void restoreFromBackup()
+    {
+        Object loaded = fileHandler.ladenObjekt("./data/", "favorites_backup.ser");
+        if(loaded instanceof ArrayList<?>)
+        {
+            favorites = (ArrayList<Song>) loaded;
+            saveFavorites(); // Restore to CSV too
         }
     }
 }
