@@ -1,13 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1">
+<!-- Scrollbarer Container für die Home-Seite -->
+<ScrollPane
+        fitToWidth="true"
+        hbarPolicy="NEVER"
+        vbarPolicy="AS_NEEDED"
+        styleClass="home-scroll"
+        xmlns="http://javafx.com/javafx/25"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.example.javaprojektmusikapp.controller.HomeController">
 
-    <Label text="Home"
-           layoutX="24"
-           layoutY="24"/>
+    <!-- Grid für die Genre-Kacheln -->
+    <GridPane
+            styleClass="home-grid"
+            hgap="32"
+            vgap="32"
+            maxWidth="Infinity">
 
-</AnchorPane>
+        <!-- Zwei gleich breite Spalten -->
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+            <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <!-- Seitenüberschrift -->
+        <Label text="Home"
+               GridPane.columnSpan="2"
+               styleClass="page-title"/>
+
+        <!-- Genre-Kacheln -->
+        <Button text="Pop"
+                GridPane.rowIndex="1"
+                GridPane.columnIndex="0"
+                styleClass="genre-tile"
+                onAction="#onPop"/>
+
+        <Button text="Rock"
+                GridPane.rowIndex="1"
+                GridPane.columnIndex="1"
+                styleClass="genre-tile"
+                onAction="#onRock"/>
+
+        <Button text="Hip-Hop"
+                GridPane.rowIndex="2"
+                GridPane.columnIndex="0"
+                styleClass="genre-tile"
+                onAction="#onHipHop"/>
+
+        <Button text="Electronic"
+                GridPane.rowIndex="2"
+                GridPane.columnIndex="1"
+                styleClass="genre-tile"
+                onAction="#onElectronic"/>
+
+        <Button text="Jazz"
+                GridPane.rowIndex="3"
+                GridPane.columnIndex="0"
+                styleClass="genre-tile"
+                onAction="#onJazz"/>
+
+        <Button text="Classical"
+                GridPane.rowIndex="3"
+                GridPane.columnIndex="1"
+                styleClass="genre-tile"
+                onAction="#onClassical"/>
+
+    </GridPane>
+</ScrollPane>
