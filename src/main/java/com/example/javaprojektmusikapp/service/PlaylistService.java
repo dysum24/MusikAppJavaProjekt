@@ -18,11 +18,13 @@ public class PlaylistService implements Serializable
     private ArrayList<Playlist> playlists = new ArrayList<>();
     private DHL fileHandler = new DHLIO();
 
+    // loads playlists when service starts up
     public PlaylistService()
     {
         loadPlaylist();
     }
 
+    // creates new playlist with given name, reeturns null if name already exists
     public Playlist createPlaylist(String name)
     {
         if(getPlaylistByName(name) != null)
@@ -36,18 +38,21 @@ public class PlaylistService implements Serializable
 
     }
 
+    // adds song to playlist and saves changes
     public void addSongToPlaylist(Playlist playlist, Song song)
     {
         playlist.addSong(song);
         savePlaylist(playlist);
     }
 
+    // removes song from playlist and updates files
     public void removeSongFromPlaylist(Playlist playlist, Song song)
     {
         playlist.removeSong(song);
         savePlaylist(playlist);
     }
 
+    // renames playlist by deleting old file and creating new one
     public void renamePLaylist(Playlist playlist, String newName)
     {
         File oldFile = new File("./data/playlist_" + playlist.getName() + ".csv");
@@ -57,6 +62,7 @@ public class PlaylistService implements Serializable
         savePlaylist(playlist);
     }
 
+    //deletes playlist from list and removes its file
     public void deletePlaylist(Playlist playlist)
     {
         playlists.remove(playlist);
@@ -68,6 +74,7 @@ public class PlaylistService implements Serializable
 
     }
 
+    // saves playlist songs to csv file name after playlist name
     private void savePlaylist(Playlist playlist)
     {
         String filename = "playlist_" + playlist.getName() + ".csv";
@@ -77,6 +84,8 @@ public class PlaylistService implements Serializable
             fileHandler.schreibenDateiCSV(playlist.getSongs(), writer);
         }
     }
+
+    // scans data folder for playlist files and loads them all
     public void loadPlaylist()
     {
         File folder = new File("./data");
@@ -85,13 +94,14 @@ public class PlaylistService implements Serializable
             folder.mkdirs();
             return;
         }
-
+        // only grab files that start with "playlist_" and end with ".csv"
         File[] files = folder.listFiles((dir, name) -> name.startsWith("playlist_") && name.endsWith(".csv"));
 
         if(files != null)
         {
             for(File file : files)
             {
+                // extract playlist name from filename
                 String playlistName = file.getName().replace("playlist_", "").replace(".csv", "");
 
                 DHLIO handler = (DHLIO) fileHandler;
@@ -99,6 +109,7 @@ public class PlaylistService implements Serializable
 
                 if(reader != null)
                 {
+                    // read all songs from file and rebuild playlist
                     ArrayList<Song> songs = handler.auslesen(reader);
 
                     Playlist playlist = new Playlist(playlistName);
@@ -113,11 +124,13 @@ public class PlaylistService implements Serializable
         System.out.println("Playlists geladen:" + playlists.size());
     }
 
+    // returns all playlists
     public ArrayList<Playlist> getAllPlaylists()
     {
         return playlists;
     }
 
+    // fines playlist by exact name match, returns null if not found
     public Playlist getPlaylistByName(String name)
     {
         for(Playlist p : playlists)

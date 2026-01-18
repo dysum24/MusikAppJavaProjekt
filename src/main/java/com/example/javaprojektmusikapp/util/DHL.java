@@ -16,8 +16,10 @@ public abstract class DHL
     protected BufferedReader in;
     protected BufferedWriter out;
 
+    // subclasses need to implement this for their specific file writing method
     public abstract BufferedWriter schreiben(String speicherort, String dateiname);
 
+    // reads csv file and converts each line into song objects
     public ArrayList<Song> auslesen(BufferedReader in)
     {
         ArrayList<Song> songs = new ArrayList<>();
@@ -25,6 +27,7 @@ public abstract class DHL
         String zeile = null;
         try
         {
+            //skips header line
             zeile = in.readLine();
         }
         catch(IOException e)
@@ -34,6 +37,7 @@ public abstract class DHL
 
         try
         {
+            // read each line and pasrse into song
             while((zeile = in.readLine()) != null)
             {
                 if(zeile.trim().isEmpty())
@@ -43,12 +47,14 @@ public abstract class DHL
 
                 String[] split = zeile.split(";");
 
+                // need at least 3 fields(id, title, artist)
                 if(split.length < 3)
                 {
                     System.err.println("Ungültige Zeile (zu wenig Felderr): " + zeile);
                     continue;
                 }
 
+                // parse all fields, use default values if missing
                 Song song = new Song(
                         split[0], //id
                         split[1],
@@ -81,13 +87,16 @@ public abstract class DHL
         return songs;
     }
 
+    // writes song list to CSV with header and semicolon seperator
     public void schreibenDateiCSV(ArrayList<Song> songs, BufferedWriter out)
     {
         try
         {
+            // write header first
             out.write("ID;Title;Artist;Album;ArtworkUrl;Duration;PreviewUrl;Price;ReleaseDate");
             out.newLine();
 
+            // write each song as one long
             for(Song song : songs)
             {
                 out.write(song.getTrackId() + ";" + song.getTrackName() + ";" + song.getArtistName() + ";" + song.getAlbumName() + ";" + song.getArtworkUrl() + ";" + song.getTrackTimeMillis() + ";" + song.getPreviewUrl() + ";" + song.getTrackPrice() + ";" + song.getReleaseDate());
@@ -111,10 +120,12 @@ public abstract class DHL
         }
     }
 
+    // serializes any object to file for backup purposes
     public void speichernObjekt(Object objekt, String speicherort, String dateiname)
     {
         try
         {
+            // make sure directory exists
             File dir = new File(speicherort);
             if(!dir.exists())
             {
@@ -134,6 +145,7 @@ public abstract class DHL
         }
     }
 
+    // deserializes object from file, returns null if something goes wrong
     public Object ladenObjekt(String speicherort, String dateiname)
     {
         try

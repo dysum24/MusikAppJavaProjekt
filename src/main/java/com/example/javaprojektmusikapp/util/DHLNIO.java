@@ -11,11 +11,13 @@ public class DHLNIO extends DHL
 {
     public String path;
 
+    // empty constructor
     public DHLNIO()
     {
 
     }
 
+    // constructor that opens file for reading right away
     public DHLNIO(String path)
     {
         this.path = path;
@@ -29,6 +31,7 @@ public class DHLNIO extends DHL
         }
     }
 
+    // creates BufferedWriter using NIO instead of IO
     @Override
     public BufferedWriter schreiben(String speicherort, String dateiname)
     {
@@ -43,6 +46,7 @@ public class DHLNIO extends DHL
         return out;
     }
 
+    // creates BufferedReader using NIO for reading
     public BufferedReader lesen(String speicherort, String dateiname)
     {
         try

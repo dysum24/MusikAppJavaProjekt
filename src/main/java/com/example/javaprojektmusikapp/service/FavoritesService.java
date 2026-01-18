@@ -14,11 +14,13 @@ public class FavoritesService
     private ArrayList<Song> favorites = new ArrayList<>();
     private DHL fileHandler = new DHLIO();
 
+    // loads the favorites when service starts up
     public FavoritesService()
     {
         loadFavorites();
     }
 
+    // puts song in favorites if its not already there then saves everything
     public void addFavorite(Song song)
     {
         if(!favorites.contains(song))
@@ -29,6 +31,7 @@ public class FavoritesService
         }
     }
 
+    // removes song out of favorites and updates files
     public void removeFavorite(Song song)
     {
         favorites.remove(song);
@@ -36,11 +39,13 @@ public class FavoritesService
         backupFavorites();
     }
 
+    // checks if song is already in favorites
     public boolean isFavorite(Song song)
     {
         return favorites.contains(song);
     }
 
+    // adds song if not already in favorites, returns true if added, false if already in favorites
     public boolean toggleFavorite(Song song)
     {
         if(favorites.contains(song))
@@ -55,11 +60,13 @@ public class FavoritesService
         }
     }
 
+    // gives back copy of favorites list so original list isnt changed
     public ArrayList<Song> getFavorites()
     {
         return new ArrayList<>(favorites);
     }
 
+    // writes current favorites to csv file
     private void saveFavorites()
     {
         BufferedWriter writer = fileHandler.schreiben("./data/", "favorites.csv");
@@ -69,6 +76,7 @@ public class FavoritesService
         }
     }
 
+    // reads favorites from csv when app starts
     public void loadFavorites()
     {
         DHLIO handler = (DHLIO) fileHandler;
@@ -79,11 +87,13 @@ public class FavoritesService
         }
     }
 
+    // creates serialized backup file
     private void backupFavorites()
     {
         fileHandler.speichernObjekt(favorites, "./data/", "favorites_backup.ser");
     }
 
+    // loads from backup file and rewrites the csv
     @SuppressWarnings("unchecked")
     public void restoreFromBackup()
     {

@@ -19,15 +19,19 @@ public class MusikService {
     private static final String API_URL = "https://itunes.apple.com/search";
     private final HttpClient client;
 
+    // sets up the http client for making api calls
     public MusikService() {
         this.client = HttpClient.newHttpClient();
     }
 
+    // searches itunes api for songs matching the search term
     public List<Song> searchByTitle(String searchTerm) throws Exception
     {
+        // encodes the search term so special characters are handled correctly
         String encodedTitle = URLEncoder.encode(searchTerm, StandardCharsets.UTF_8);
         String url = API_URL + "?term=" + encodedTitle + "&media=music&entity=song";
 
+        // build and send the get request
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .GET()
@@ -35,12 +39,15 @@ public class MusikService {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
+        // parse json response and gets song data
         List<Song> songs = new ArrayList<>();
         JsonObject json = JsonParser.parseString(response.body()).getAsJsonObject();
         JsonArray results = json.getAsJsonArray("results");
 
+        // loop through the results and create song objects
         for (int i = 0; i < results.size(); i++) {
             JsonObject track = results.get(i).getAsJsonObject();
+            // use has() to check if fields exist before getting them, fallsback to defaults
             Song song = new Song(
                     String.valueOf(track.get("trackId").getAsInt()),
                     track.get("trackName").getAsString(),
