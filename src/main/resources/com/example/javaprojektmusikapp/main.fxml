@@ -13,29 +13,65 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaprojektmusikapp.controller.MainController">
-   <center>
-      <AnchorPane fx:id="contentPane" prefHeight="400.0" prefWidth="600.0">
+<!-- Root-Layout der gesamten Anwendung -->
+<BorderPane stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.javaprojektmusikapp.controller.MainController">
 
-</AnchorPane>
+   <!-- Zentrale Content-Fläche (Views werden dynamisch geladen) -->
+   <center>
+      <AnchorPane fx:id="contentPane"
+                  prefHeight="400.0"
+                  prefWidth="600.0">
+      </AnchorPane>
    </center>
+
+   <!-- Obere Suchleiste (nur auf Home sichtbar) -->
    <top>
-      <HBox prefHeight="60.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <HBox fx:id="topSearchBar"
+            prefHeight="60.0"
+            spacing="10.0"
+            BorderPane.alignment="CENTER">
+
+         <!-- Abstand zum Rand -->
          <BorderPane.margin>
-            <Insets bottom="10" left="20" right="20" top="14" />
+            <Insets bottom="10"
+                    left="20"
+                    right="20"
+                    top="14"/>
          </BorderPane.margin>
+
          <children>
-            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <TextField fx:id="searchField" prefWidth="420.0" promptText="Was möchtest du spielen?" styleClass="search-field" />
-            <Button fx:id="searchBtn" mnemonicParsing="false" styleClass="search-btn" text="Suchen" />
-            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <!-- Spacer links -->
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Suchfeld -->
+            <TextField fx:id="topSearchField"
+                       promptText="Was möchtest du spielen?"
+                       styleClass="search-field"/>
+
+            <!-- Such-Button -->
+            <Button text="Suchen"
+                    onAction="#onTopSearch"
+                    styleClass="search-btn"/>
+
+            <!-- Spacer rechts -->
+            <Region HBox.hgrow="ALWAYS"/>
          </children>
       </HBox>
    </top>
+
+   <!-- Linke Sidebar mit Navigation und Playlists -->
    <left>
-      <fx:include fx:id="sidebar" source="sidebar.fxml"/>
+      <fx:include fx:id="sidebar"
+                  source="sidebar.fxml"/>
    </left>
+
+   <!-- Untere Playerbar -->
    <bottom>
-      <fx:include fx:id="playerbar" source="playerbar.fxml"/>
+      <fx:include fx:id="playerbar"
+                  source="playerbar.fxml"/>
    </bottom>
+
 </BorderPane>

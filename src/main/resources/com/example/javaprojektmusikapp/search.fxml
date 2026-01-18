@@ -4,34 +4,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ListView?>
-
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
+
+<!-- Root-Container der Search-Seite -->
 <AnchorPane xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.javaprojektmusikapp.controller.SearchController">
 
-    <VBox spacing="16"
+    <!-- Inhalt der Search-Seite -->
+    <VBox spacing="18"
           layoutX="32"
           layoutY="32"
-          prefWidth="640">
+          prefWidth="760"
+          maxWidth="Infinity"
+          styleClass="page-root">
 
-        <!-- Überschrift -->
+        <!-- Überschrift der Seite -->
         <Label text="Search"
-               styleClass="player-title"/>
+               styleClass="page-title"/>
 
-        <!-- Suchfeld -->
+        <!-- Eingabefeld für die Suchanfrage -->
         <TextField fx:id="searchField"
                    promptText="Suche nach Songs, Künstlern oder Alben"
                    styleClass="search-field"/>
 
-
-        <!-- Button -->
+        <!-- Button zum Starten der Suche -->
         <Button text="Suchen"
                 onAction="#onSearch"
                 styleClass="search-btn"/>
 
-        <!-- Ergebnisse -->
+        <!-- Ergebnisliste der Suche -->
         <ListView fx:id="resultsList"
                   visible="false"
                   managed="false"
@@ -40,5 +43,3 @@
     </VBox>
 
 </AnchorPane>
-
-

@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.control.ListView?>
-<AnchorPane xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.javaprojektmusikapp.controller.FavoritesController">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import com.example.javaprojektmusikapp.model.Song?>
 
+<!-- Root-Container der Favorites-Seite -->
+<VBox xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.javaprojektmusikapp.controller.FavoritesController"
+      spacing="18"
+      styleClass="page-root">
+
+    <!-- Innenabstand der Seite -->
+    <padding>
+        <Insets top="28" right="32" bottom="28" left="32"/>
+    </padding>
+
+    <!-- Überschrift der Seite -->
     <Label text="Favorites"
-           layoutX="24"
-           layoutY="24"/>
+           styleClass="page-title"/>
 
+    <!-- Liste mit allen favorisierten Songs -->
     <ListView fx:id="favoritesList"
-              layoutX="24"
-              layoutY="48"
-              prefWidth="400"
-              prefHeight="300"/>
+              VBox.vgrow="ALWAYS"
+              styleClass="song-list"/>
 
-</AnchorPane>
+</VBox>
