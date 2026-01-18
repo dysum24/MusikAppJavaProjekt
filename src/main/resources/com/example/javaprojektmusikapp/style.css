@@ -1,160 +1,191 @@
-/* ======================================================
-   ROOT / LAYOUT
-   ====================================================== */
+// ROOT / LAYOUT
 
+// Hintergrund der gesamten Anwendung
 .root {
     -fx-background-color: linear-gradient(
-            to bottom right,
-            #1e293d,
-            #0f172a
+        to bottom right,
+        #1e293d,
+        #0f172a
     );
 }
 
+
+// SIDEBAR
+
+// Linke Sidebar mit Navigation und Playlists
 .sidebar {
     -fx-background-color: linear-gradient(
-            to bottom,
-            rgba(10,15,30,0.92),
-            rgba(10,15,30,0.85)
+        to bottom,
+        rgba(10,15,30,0.94),
+        rgba(10,15,30,0.88)
     );
-    -fx-padding: 16 12;
+    -fx-padding: 18 14;
 }
 
 
-/* ======================================================
-   TYPOGRAPHY
-   ====================================================== */
+// TYPOGRAPHY
 
+// Titel der Anwendung in der Sidebar
 .app-title {
     -fx-text-fill: #e5e7eb;
-    -fx-font-size: 19px;
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 16 0;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-padding: 0 0 20 0;
 }
 
+// Abschnittsüberschrift (z. B. PLAYLISTS)
 .section-title {
     -fx-text-fill: #9ca3af;
     -fx-font-size: 11px;
-    -fx-padding: 12 0 6 0;
+    -fx-padding: 14 0 6 0;
+}
+
+// Große Überschriften im Content-Bereich
+.page-title,
+.content-title,
+.genre-title {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
 }
 
 
-/* ======================================================
-   NAVIGATION
-   ====================================================== */
+// CENTER LAYOUT
 
+// Grundlayout für Seiten im Center
+.page-root,
+.content-root,
+.genre-root {
+    -fx-padding: 32 48;
+}
+
+
+// NAVIGATION BUTTONS
+
+// Navigationsbuttons in der Sidebar
 .nav-btn {
     -fx-background-color: transparent;
     -fx-text-fill: #e5e7eb;
     -fx-font-size: 13px;
     -fx-padding: 10 14;
     -fx-alignment: CENTER_LEFT;
-    -fx-background-radius: 8;
+    -fx-background-radius: 10;
 }
 
+// Hover-Zustand der Navigationsbuttons
 .nav-btn:hover {
-    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-background-color: rgba(255,255,255,0.07);
 }
 
+// Aktiver Navigationspunkt
 .nav-btn:active-item {
-    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-background-color: rgba(255,255,255,0.16);
 }
 
 
-/* ======================================================
-   SEARCH
-   ====================================================== */
+// SEARCH
 
+// Suchfeld (Top-Suche & Search-Seite)
 .search-field {
     -fx-background-color: rgba(255,255,255,0.10);
     -fx-text-fill: white;
     -fx-prompt-text-fill: #9ca3af;
     -fx-background-radius: 999;
-    -fx-padding: 9 18;
-    -fx-font-size: 13px;
+    -fx-padding: 10 22;
+    -fx-font-size: 14px;
 }
 
+// Such-Button
 .search-btn {
     -fx-background-color: rgba(255,255,255,0.10);
     -fx-text-fill: #e5e7eb;
-    -fx-font-size: 12px;
-    -fx-padding: 9 18;
+    -fx-font-size: 13px;
+    -fx-padding: 10 22;
     -fx-background-radius: 999;
 }
 
+// Hover-Zustand des Such-Buttons
 .search-btn:hover {
-    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-background-color: rgba(255,255,255,0.18);
 }
 
 
-/* ======================================================
-   LIST VIEW / SONG CELLS
-   ====================================================== */
+// LIST VIEW / SONG LIST
 
+// Grundstil für ListViews
 .list-view {
     -fx-background-color: rgba(255,255,255,0.06);
+    -fx-background-radius: 14;
     -fx-padding: 6;
-    -fx-background-radius: 8;
 }
 
+// Einzelne Song-Zeile
 .list-cell {
     -fx-background-color: transparent;
-    -fx-text-fill: #e5e7eb;
-    -fx-padding: 12 14;
+    -fx-padding: 14 18;
     -fx-font-size: 13px;
 }
 
+// Hover-Zustand einer Song-Zeile
 .list-cell:hover {
-    -fx-background-color: rgba(255,255,255,0.06);
-    -fx-background-radius: 10;
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-background-radius: 12;
 }
 
-.list-cell:selected {
-    -fx-background-color: rgba(255,255,255,0.10);
-    -fx-background-radius: 10;
+// Auswahl bei fokussierter ListView
+.list-view:focused .list-cell:selected {
+    -fx-background-color: rgba(255,255,255,0.16);
 }
 
-/* Songtitel */
+// Auswahl bei nicht fokussierter ListView
+.list-view:not(:focused) .list-cell:selected {
+    -fx-background-color: transparent;
+}
+
+// Textfarbe der Song-Labels
 .list-cell .label {
     -fx-text-fill: #f1f5f9;
 }
 
-/* Artistname */
+// Künstlername (zweite Zeile)
 .list-cell .label:last-child {
     -fx-text-fill: #cbd5e1;
 }
 
 
-/* ======================================================
-   PLAYER BAR
-   ====================================================== */
+// PLAYER BAR
 
+// Untere Player-Leiste
 .playerbar {
     -fx-background-color: linear-gradient(
-            to top,
-            rgba(2,6,23,0.98),
-            rgba(2,6,23,0.92)
+        to top,
+        rgba(2,6,23,0.98),
+        rgba(2,6,23,0.92)
     );
     -fx-border-color: rgba(255,255,255,0.06);
     -fx-border-width: 1 0 0 0;
-    -fx-padding: 10 14;
+    -fx-padding: 12 16;
 }
 
+// Songtitel im Player
 .player-title {
     -fx-text-fill: white;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
 
+// Künstlername im Player
 .player-artist {
     -fx-text-fill: #9ca3af;
     -fx-font-size: 11px;
 }
 
+// Play/Pause-Button
 .play-btn {
     -fx-background-color: linear-gradient(
-            to bottom,
-            #1ed760,
-            #1db954
+        to bottom,
+        #1ed760,
+        #1db954
     );
     -fx-text-fill: white;
     -fx-font-size: 13px;
@@ -163,76 +194,141 @@
     -fx-min-height: 42;
     -fx-cursor: hand;
     -fx-font-weight: bold;
-    -fx-padding: 0;
 }
 
+// Hover-Zustand des Play-Buttons
 .play-btn:hover {
-    -fx-background-color: linear-gradient(
-            to bottom,
-            #22e065,
-            #1ed760
-    );
-    -fx-scale-x: 1.06;
-    -fx-scale-y: 1.06;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
+// Play-Status aktiv
 .play-btn:playing {
     -fx-background-color: linear-gradient(
-            to bottom,
-            #22c55e,
-            #16a34a
+        to bottom,
+        #22c55e,
+        #16a34a
     );
 }
 
 
-/* ======================================================
-   SLIDERS
-   ====================================================== */
+// SLIDERS
 
+// Grundstil für Slider
 .slider {
     -fx-pref-width: 160;
 }
 
+// Fortschrittsleiste des Sliders
 .slider .track {
-    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-background-color: rgba(255,255,255,0.20);
     -fx-pref-height: 4;
 }
 
+// Slider-Knopf (unsichtbar)
 .slider .thumb {
     -fx-background-color: transparent;
-    -fx-pref-width: 10;
-    -fx-pref-height: 10;
 }
 
+// Slider-Knopf bei Hover sichtbar
 .slider:hover .thumb {
     -fx-background-color: #1db954;
 }
 
+// Vertikaler Lautstärke-Slider
 .slider:vertical {
     -fx-pref-height: 90;
 }
 
 
-/* ======================================================
-   FAVORITE HEART BUTTON (MODERN)
-   ====================================================== */
+// FAVORITE HEART
 
+// Herz-Button
 .heart-button {
     -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-cursor: hand;
     -fx-font-size: 16px;
     -fx-text-fill: #94a3b8;
-    -fx-padding: 4;
+    -fx-cursor: hand;
 }
 
-/* Favorit */
+// Aktiver Favorit
 .heart-button.favorite {
     -fx-text-fill: #1db954;
 }
 
-/* Hover */
+// Hover-Zustand des Herz-Buttons
 .heart-button:hover {
     -fx-text-fill: #22e065;
 }
 
+
+// HOME
+
+// ScrollPane auf der Home-Seite
+.home-scroll {
+    -fx-background-color: transparent;
+}
+
+// Viewport der ScrollPane
+.home-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+// Grid mit Genre-Kacheln
+.home-grid {
+    -fx-padding: 32 48;
+}
+
+
+// GENRE TILES
+
+// Genre-Kachel auf der Home-Seite
+.genre-tile {
+    -fx-max-width: Infinity;
+    -fx-pref-height: 180;
+    -fx-background-radius: 26;
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+    -fx-padding: 0 0 0 36;
+    -fx-cursor: hand;
+}
+
+// Hover-Zustand der Genre-Kachel
+.genre-tile:hover {
+    -fx-background-color: rgba(255,255,255,0.22);
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
+}
+
+
+// SIDEBAR PLAYLIST
+
+// Playlist-Liste in der Sidebar
+.sidebar .list-view {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-selection-bar: transparent;
+    -fx-selection-bar-non-focused: transparent;
+}
+
+// Einzelne Playlist-Zeile
+.sidebar .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cbd5e1;
+    -fx-padding: 8 12;
+    -fx-background-radius: 8;
+}
+
+// Hover-Zustand der Playlist-Zeile
+.sidebar .list-cell:hover {
+    -fx-background-color: rgba(255,255,255,0.06);
+}
+
+// Auswahlzustand der Playlist-Zeile
+.sidebar .list-cell:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cbd5e1;
+}
