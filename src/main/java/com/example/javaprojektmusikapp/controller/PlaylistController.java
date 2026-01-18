@@ -2,82 +2,60 @@ package com.example.javaprojektmusikapp.controller;
 
 import com.example.javaprojektmusikapp.model.Playlist;
 import com.example.javaprojektmusikapp.model.Song;
+import com.example.javaprojektmusikapp.ui.cell.PlaylistSongCell;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
 
-public class PlaylistController {
-
+public class PlaylistController
+{
+    // Überschrift mit dem Namen der aktuell geöffneten Playlist
     @FXML
     private Label playlistTitle;
 
+    // ListView mit allen Songs der Playlist
     @FXML
     private ListView<Song> songList;
 
+    // Referenz auf den MainController für Services und Aktualisierung
     private MainController mainController;
 
+    // Aktuell angezeigte Playlist
     private Playlist playlist;
 
-    public Playlist getPlaylist() {
-        return playlist;
-    }
-
-
     @FXML
-    private void initialize() {
-
-        songList.setCellFactory(list -> new ListCell<>() {
-            @Override
-            protected void updateItem(Song song, boolean empty) {
-                super.updateItem(song, empty);
-
-                if (empty || song == null) {
-                    setText(null);
-                    setContextMenu(null);
-                    return;
-                }
-
-                setText(song.getTrackName() + "\n" + song.getArtistName());
-
-                MenuItem removeItem = new MenuItem("Aus Playlist entfernen");
-
-                removeItem.setOnAction(e -> {
-                    mainController.getPlaylistService()
-                            .removeSongFromPlaylist(playlist, song);
-
-                    refreshSongs();
-                });
-
-                setContextMenu(new javafx.scene.control.ContextMenu(removeItem));
-            }
-        });
-
-
-        songList.setOnMouseClicked(event -> {
-            if (event.getButton() == javafx.scene.input.MouseButton.PRIMARY) {
-                Song selected = songList.getSelectionModel().getSelectedItem();
-                if (selected != null && mainController != null) {
-                    mainController.showInPlayerbar(selected);
-                }
-            }
-        });
-
+    private void initialize()
+    {
     }
 
-    public void setMainController(MainController mainController) {
+    // Wird vom MainController gesetzt
+    public void setMainController(MainController mainController)
+    {
         this.mainController = mainController;
     }
 
-    public void setPlaylist(Playlist playlist) {
+    // Setzt die Playlist und lädt deren Songs
+    public void setPlaylist(Playlist playlist)
+    {
         this.playlist = playlist;
+
+        // Playlist-Namen als Überschrift setzen
         playlistTitle.setText(playlist.getName());
+
+        // Songs der Playlist in die ListView laden
         songList.getItems().setAll(playlist.getSongs());
+
+        // Eigene SongCell für Playlist-Songs setzen
+        songList.setCellFactory(list ->
+                new PlaylistSongCell(mainController, playlist)
+        );
     }
 
-    public void refreshSongs() {
-        songList.getItems().setAll(playlist.getSongs());
+    // Aktualisiert die Songliste der aktuellen Playlist
+    public void refreshSongs()
+    {
+        songList.getItems().setAll(
+                playlist.getSongs()
+        );
     }
-
 }

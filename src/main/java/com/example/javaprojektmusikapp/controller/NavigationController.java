@@ -8,20 +8,15 @@ import com.example.javaprojektmusikapp.service.PlaylistService;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+
 import java.util.Optional;
-import com.example.javaprojektmusikapp.service.PlaylistService;
-import com.example.javaprojektmusikapp.model.Playlist;
 
-
-
-// Steuert die Sidebar-Navigation (Home, Search, Favorites).
-// Sorgt dafür, dass immer genau ein Button aktiv ist.
-public class NavigationController {
-
-    // Verbindet die Sidebar mit dem MainController
+public class NavigationController
+{
+    // Referenz auf den MainController für Navigation und View-Wechsel
     private MainController mainController;
 
-    // Buttons aus der Sidebar (sidebar.fxml)
+    // Navigationsbuttons in der Sidebar
     @FXML
     private Button homeBtn;
 
@@ -31,40 +26,46 @@ public class NavigationController {
     @FXML
     private Button favoritesBtn;
 
+    // ListView mit allen Playlists in der Sidebar
     @FXML
     private ListView<Playlist> playlistList;
 
+    // Service zur Verwaltung der Playlists
     private PlaylistService playlistService;
 
-
     // PseudoClass für den aktuell aktiven Navigationspunkt
-    private static final PseudoClass ACTIVE = PseudoClass.getPseudoClass("active-item");
+    private static final PseudoClass ACTIVE =
+            PseudoClass.getPseudoClass("active-item");
 
-    // Wird beim Laden der Sidebar aufgerufen
-    // Home ist standardmäßig aktiv
+    // Wird aufgerufen, wenn die Sidebar geladen wird
     @FXML
     public void initialize()
     {
+        // Home ist standardmäßig aktiv
         setActive(homeBtn);
     }
 
+    // Verbindet den NavigationController mit dem MainController
     public void setMainController(MainController mainController)
     {
         this.mainController = mainController;
         this.playlistService = mainController.getPlaylistService();
 
-        //  Playlists in Sidebar laden
+        // Playlists aus dem Service in die Sidebar laden
         playlistList.getItems().setAll(
                 playlistService.getAllPlaylists()
         );
 
-        //  Rechtsklick-Menü für Playlists (LÖSCHEN)
-        playlistList.setCellFactory(list -> new javafx.scene.control.ListCell<>() {
+        // Eigene Cell für Playlists inkl. ContextMenu setzen
+        playlistList.setCellFactory(list -> new javafx.scene.control.ListCell<>()
+        {
             @Override
-            protected void updateItem(Playlist playlist, boolean empty) {
+            protected void updateItem(Playlist playlist, boolean empty)
+            {
                 super.updateItem(playlist, empty);
 
-                if (empty || playlist == null) {
+                if (empty || playlist == null)
+                {
                     setText(null);
                     setContextMenu(null);
                     return;
@@ -72,22 +73,25 @@ public class NavigationController {
 
                 setText(playlist.getName());
 
+                // Menüpunkt: Playlist löschen
                 MenuItem deleteItem = new MenuItem("Playlist löschen");
-                deleteItem.setOnAction(e -> {
-
+                deleteItem.setOnAction(e ->
+                {
                     playlistService.deletePlaylist(playlist);
 
+                    // Sidebar neu laden
                     playlistList.getItems().setAll(
                             playlistService.getAllPlaylists()
                     );
 
+                    // Zurück zur Home-Ansicht
                     mainController.showHome();
                 });
 
-// ️ NEU: Playlist umbenennen
+                // Menüpunkt: Playlist umbenennen
                 MenuItem renameItem = new MenuItem("Playlist umbenennen");
-                renameItem.setOnAction(e -> {
-
+                renameItem.setOnAction(e ->
+                {
                     TextInputDialog dialog =
                             new TextInputDialog(playlist.getName());
 
@@ -95,42 +99,57 @@ public class NavigationController {
                     dialog.setHeaderText("Neuer Name der Playlist");
                     dialog.setContentText("Name:");
 
-                    dialog.showAndWait().ifPresent(newName -> {
-
+                    dialog.showAndWait().ifPresent(newName ->
+                    {
                         String trimmed = newName.trim();
-                        if (trimmed.isEmpty()) {
+                        if (trimmed.isEmpty())
+                        {
                             return;
                         }
 
-                        // vorhandene Backend-Methode nutzen (kein Backend-Ändern!)
                         playlistService.renamePLaylist(playlist, trimmed);
 
-                        // Sidebar aktualisieren
+                        // Sidebar nach Umbenennung aktualisieren
                         playlistList.getItems().setAll(
                                 playlistService.getAllPlaylists()
                         );
                     });
                 });
 
-//  WICHTIG: BEIDE MenuItems ins ContextMenu
                 setContextMenu(
                         new javafx.scene.control.ContextMenu(renameItem, deleteItem)
                 );
-
             }
         });
 
-        // 3️ Playlist auswählen → anzeigen
+        // Klick auf Playlist dann Playlist-Ansicht anzeigen
         playlistList.getSelectionModel()
                 .selectedItemProperty()
-                .addListener((obs, old, selected) -> {
-                    if (selected != null) {
+                .addListener((obs, old, selected) ->
+                {
+                    if (selected != null)
+                    {
                         mainController.showPlaylist(selected);
                     }
                 });
+
+        // Einfacher Klick auf Playlist
+        playlistList.setOnMouseClicked(event ->
+        {
+            if (event.getClickCount() == 1)
+            {
+                Playlist selected =
+                        playlistList.getSelectionModel().getSelectedItem();
+
+                if (selected != null)
+                {
+                    mainController.showPlaylist(selected);
+                }
+            }
+        });
     }
 
-    // Klick auf "Home"
+    // Klick auf Home-Button
     @FXML
     private void onHome()
     {
@@ -138,7 +157,7 @@ public class NavigationController {
         mainController.showHome();
     }
 
-    // Klick auf "Search"
+    // Klick auf Search-Button
     @FXML
     private void onSearch()
     {
@@ -146,7 +165,7 @@ public class NavigationController {
         mainController.showSearch();
     }
 
-    // Klick auf "Favorites"
+    // Klick auf Favorites-Button
     @FXML
     private void onFavorites()
     {
@@ -154,7 +173,7 @@ public class NavigationController {
         mainController.showFavorites();
     }
 
-    // Setzt genau einen Button als aktiv
+    // Setzt genau einen Navigationsbutton als aktiv
     private void setActive(Button activeBtn)
     {
         homeBtn.pseudoClassStateChanged(ACTIVE, false);
@@ -164,9 +183,10 @@ public class NavigationController {
         activeBtn.pseudoClassStateChanged(ACTIVE, true);
     }
 
+    // Erstellt eine neue Playlist über Dialog
     @FXML
-    private void onCreatePlaylist() {
-
+    private void onCreatePlaylist()
+    {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Neue Playlist");
         dialog.setHeaderText("Neue Playlist erstellen");
@@ -174,22 +194,22 @@ public class NavigationController {
 
         Optional<String> result = dialog.showAndWait();
 
-        result.ifPresent(name -> {
-
+        result.ifPresent(name ->
+        {
             String trimmed = name.trim();
-            if (trimmed.isEmpty()) {
+            if (trimmed.isEmpty())
+            {
                 return;
             }
 
             Playlist playlist = playlistService.createPlaylist(trimmed);
 
-            if (playlist != null) {
+            if (playlist != null)
+            {
                 playlistList.getItems().setAll(
                         playlistService.getAllPlaylists()
                 );
             }
         });
     }
-
-
 }
