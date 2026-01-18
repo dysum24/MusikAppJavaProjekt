@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<!-- Root-Container der Genre-Seite -->
+<VBox spacing="16"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.javaprojektmusikapp.controller.GenreController"
+      styleClass="genre-root">
+
+    <!-- Kopfbereich mit Zurück-Button und Genre-Titel -->
+    <HBox alignment="CENTER_LEFT"
+          spacing="12"
+          styleClass="genre-header">
+
+        <!-- Zurück zur Home-Seite -->
+        <Button text="←"
+                onAction="#onBack"
+                styleClass="icon-btn"/>
+
+        <!-- Anzeigename des aktuellen Genres -->
+        <Label fx:id="genreTitle"
+               text="Genre"
+               styleClass="genre-title"/>
+
+        <!-- Spacer für saubere Ausrichtung -->
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <!-- Liste der Songs im aktuellen Genre -->
+    <ListView fx:id="songList"
+              VBox.vgrow="ALWAYS"
+              styleClass="song-list"/>
+
+</VBox>
